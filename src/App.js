@@ -14,8 +14,10 @@ import {
   Button,
   Col,
   Row,
-  Jumbotron
+  Jumbotron,
+  Card
 } from "reactstrap";
+// import Thumbnail from "bootstrap";
 
 
 const buttonStyle = {
@@ -34,13 +36,92 @@ class App extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      isOpen: false
+      isOpen: false,
+      dogs: []
     };
   }
+
+  componentDidMount() {
+    let dogs = []
+    for (let i = 1; i < 13; i++) {
+      dogs.push({ picture: require(`./Dog${i}.jpg`), num: i })
+    }
+    this.setState({ dogs })
+  }
+
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
     });
+  }
+
+  shuffle = (array) => {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  }
+
+
+  scramble = (num) => {
+    console.log(`hello`)
+    console.log(`we clicked on: ${num}`)
+
+    const dogs = this.shuffle(this.state.dogs)
+    console.log(`the value of dogs is ${dogs}`)
+    this.setState({ dogs })
+
+  }
+
+
+  // <Col sm={{ size: 'auto', offset: 2 }} className="pic1"></Col>
+
+
+  // columnEnd = () => {
+  //   return(<Col>)
+  // }
+
+  // startRow = (index) => {
+  //   if (index % 4 === 0)
+  //     return(<Row>)
+  // } 
+
+
+
+  // getColumn = (index) => {
+  //   if (index % 4 ===0)
+  //     return (<Col sm={{ size: 'auto', offset: 2 }}>)
+  //   else
+  //     return (<Col sm={{ size: 'auto', offset: 0 }}>)
+  // }
+
+ 
+
+  renderCards = () => {
+    return this.state.dogs.map((dog, index) => {
+      return (
+        
+        // <div>{index % 3 === 0 ? (<Row>) : () } </div>
+        <div key={index} style={{ display: "inline-block", height: "250px", width: "240px" }}>
+          {/* {this.startRow(index)} */}
+          {/* {this.getColumn(index)} */}
+          <img onClick={() => this.scramble(dog.num)} className={`pic${index}`} src={dog.picture} alt="..." num={dog.num} />
+          {/* {this.columnEnd} */}
+        </div>
+      )
+    })
   }
 
   render() {
@@ -51,25 +132,6 @@ class App extends Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              {/* <NavItem>
-                <NavLink href="/components/">Components</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="https://github.com/cbo2/clicky-game">
-                  GitHub
-                </NavLink>
-              </NavItem> */}
-              {/* <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Options
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>Option 1</DropdownItem>
-                  <DropdownItem>Option 2</DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>Reset</DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown> */}
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
                   <a className="nav-link score" href="/">Score: 0</a>
@@ -85,87 +147,10 @@ class App extends Component {
           <h1 align="center">Clicky Game!</h1>
           <p align="center">Click any image and earn a point...but, be careful not to click the same image again!</p>
         </Jumbotron>
-        {/* <div className="align-items-center"> */}
-        {/* <Row><p>1</p></Row>
-        <Row>
-          <p>2</p>
-          <Button color="primary">Hit Me</Button>
-        </Row>
-        <Row><p>3</p></Row>
-        <Col sm={{ size: 'auto', offset: 5 }}>
-          <Button style={buttonStyle} color="primary">(Centered Button) Hit Me</Button>
-        </Col>
-        <br>
-        </br>
-        <br>
-        </br> */}
-        <Row>
-          <Col sm={{ size: 'auto', offset: 2 }} className="pic1">
-            <a href="#" className="thumbnail">
-              <img src={require("./Dog1.jpg")} alt="..." />
-            </a>
-          </Col>
-          <Col sm={{ size: 'auto', offset: 0 }} className="pic2">
-            <a href="#" className="thumbnail">
-              <img src={require("./Dog1.jpg")} alt="..." />
-            </a>
-          </Col>
-          <Col sm={{ size: 'auto', offset: 0 }} className="pic3">
-            <a href="#" className="thumbnail">
-              <img src={require("./Dog1.jpg")} alt="..." />
-            </a>
-          </Col>
-          <Col sm={{ size: 'auto', offset: 0 }} className="pic4">
-            <a href="#" className="thumbnail">
-              <img src={require("./Dog1.jpg")} alt="..." />
-            </a>
-          </Col>
-        </Row>
-        <Row>
-          <Col sm={{ size: 'auto', offset: 2 }} className="pic5">
-            <a href="#" className="thumbnail">
-              <img src={require("./Dog1.jpg")} alt="..." />
-            </a>
-          </Col>
-          <Col sm={{ size: 'auto', offset: 0 }} className="pic6">
-            <a href="#" className="thumbnail">
-              <img src={require("./Dog1.jpg")} alt="..." />
-            </a>
-          </Col>
-          <Col sm={{ size: 'auto', offset: 0 }} className="pic7">
-            <a href="#" className="thumbnail">
-              <img src={require("./Dog1.jpg")} alt="..." />
-            </a>
-          </Col>
-          <Col sm={{ size: 'auto', offset: 0 }} className="pic8">
-            <a href="#" className="thumbnail">
-              <img src={require("./Dog1.jpg")} alt="..." />
-            </a>
-          </Col>
-        </Row>
-        <Row>
-          <Col sm={{ size: 'auto', offset: 2 }} className="pic9">
-            <a href="#" className="thumbnail">
-              <img src={require("./Dog1.jpg")} alt="..." />
-            </a>
-          </Col>
-          <Col sm={{ size: 'auto', offset: 0 }} className="pic10">
-            <a href="#" className="thumbnail">
-              <img src={require("./Dog1.jpg")} alt="..." />
-            </a>
-          </Col>
-          <Col sm={{ size: 'auto', offset: 0 }} className="pic11">
-            <a href="#" className="thumbnail">
-              <img src={require("./Dog1.jpg")} alt="..." />
-            </a>
-          </Col>
-          <Col sm={{ size: 'auto', offset: 0 }} className="pic12">
-            <a href="#" className="thumbnail">
-              <img src={require("./Dog1.jpg")} alt="..." />
-            </a>
-          </Col>
-        </Row>
-        {/* </div> */}
+        <div class="col-sm-9" style={{ marginLeft: '15%' }}>
+          {this.renderCards()}
+        </div>
+
       </div>
     );
   }
