@@ -100,30 +100,6 @@ class App extends Component {
 
   }
 
-
-  // <Col sm={{ size: 'auto', offset: 2 }} className="pic1"></Col>
-
-
-  // columnEnd = () => {
-  //   return(<Col>)
-  // }
-
-  // startRow = (index) => {
-  //   if (index % 4 === 0)
-  //     return(<Row>)
-  // } 
-
-
-
-  // getColumn = (index) => {
-  //   if (index % 4 ===0)
-  //     return (<Col sm={{ size: 'auto', offset: 2 }}>)
-  //   else
-  //     return (<Col sm={{ size: 'auto', offset: 0 }}>)
-  // }
-
-
-
   renderCards = () => {
     return this.state.dogs.map((dog, index) => {
       return (
