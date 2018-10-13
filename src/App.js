@@ -78,7 +78,8 @@ class App extends Component {
   }
 
   resetGame = () => {
-
+    console.log(`resetting the game!`)
+    this.setState({ clicked: [], score: 0 })
   }
 
   scramble = (num) => {
@@ -86,20 +87,31 @@ class App extends Component {
     console.log(`we clicked on: ${num}`)
 
     let clicked = this.state.clicked
+    let dogs = []
     if (clicked.includes(num)) {   // if the clicked array has this dog already, game over!
       console.log(`=======> game over!`)
+      dogs = this.shuffle(this.state.dogs)
+      this.setState({ dogs })
       this.resetGame()
     } else {
       clicked.push(num)
-      this.setState({ clicked })
-      this.setState({score: this.state.score + 1})
-      if (this.state.score > this.state.topScore) {
-        this.setState({topScore: this.state.score})
+      let score = this.state.score + 1
+      let topScore = this.state.topScore
+      console.log(`the value of score is ${score} and topscore is ${topScore}`)
+      if (score > topScore) {
+        topScore = score
       }
-      console.log(`clicked now has ${this.state.clicked}`)
-      const dogs = this.shuffle(this.state.dogs)
-      console.log(`the value of dogs is ${dogs}`)
-      this.setState({ dogs })
+      if (score === 12) {
+        alert(`You Won!!!`)
+        dogs = this.shuffle(this.state.dogs)
+        this.setState({ dogs, topScore })
+        this.resetGame()
+      } else {
+        console.log(`clicked now has ${this.state.clicked}`)
+        console.log(`2nd the value of score is ${this.state.score} and topscore is ${this.state.topScore}`)
+        dogs = this.shuffle(this.state.dogs)
+        this.setState({ dogs, clicked, score, topScore })
+      }
     }
 
   }
