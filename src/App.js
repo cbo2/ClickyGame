@@ -5,25 +5,8 @@ import {
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  Button,
-  Col,
-  Row,
-  Jumbotron,
-  Card
+  Jumbotron
 } from "reactstrap";
-// import Thumbnail from "bootstrap";
-
-
-const buttonStyle = {
-  background: 'black',
-  color: 'white'
-};
 
 const jumbotronStyle = {
   background: 'yellow',
@@ -90,6 +73,7 @@ class App extends Component {
     let dogs = []
     if (clicked.includes(num)) {   // if the clicked array has this dog already, game over!
       console.log(`=======> game over!`)
+      alert(`Oooooops....`)
       dogs = this.shuffle(this.state.dogs)
       this.setState({ dogs })
       this.resetGame()
@@ -178,7 +162,7 @@ class App extends Component {
           <h1 align="center">Clicky Game!</h1>
           <p align="center">Click any image and earn a point...but, be careful not to click the same image again!</p>
         </Jumbotron>
-        <div class="col-sm-9" style={{ marginLeft: '15%' }}>
+        <div className="col-sm-9" style={{ marginLeft: '15%' }}>
           {this.renderCards()}
         </div>
 
