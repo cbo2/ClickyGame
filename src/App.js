@@ -37,7 +37,10 @@ class App extends Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       isOpen: false,
-      dogs: []
+      dogs: [],
+      clicked: [],
+      score: 0,
+      topScore: 0
     };
   }
 
@@ -74,14 +77,30 @@ class App extends Component {
     return array;
   }
 
+  resetGame = () => {
+
+  }
 
   scramble = (num) => {
     console.log(`hello`)
     console.log(`we clicked on: ${num}`)
 
-    const dogs = this.shuffle(this.state.dogs)
-    console.log(`the value of dogs is ${dogs}`)
-    this.setState({ dogs })
+    let clicked = this.state.clicked
+    if (clicked.includes(num)) {   // if the clicked array has this dog already, game over!
+      console.log(`=======> game over!`)
+      this.resetGame()
+    } else {
+      clicked.push(num)
+      this.setState({ clicked })
+      this.setState({score: this.state.score + 1})
+      if (this.state.score > this.state.topScore) {
+        this.setState({topScore: this.state.score})
+      }
+      console.log(`clicked now has ${this.state.clicked}`)
+      const dogs = this.shuffle(this.state.dogs)
+      console.log(`the value of dogs is ${dogs}`)
+      this.setState({ dogs })
+    }
 
   }
 
@@ -107,12 +126,12 @@ class App extends Component {
   //     return (<Col sm={{ size: 'auto', offset: 0 }}>)
   // }
 
- 
+
 
   renderCards = () => {
     return this.state.dogs.map((dog, index) => {
       return (
-        
+
         // <div>{index % 3 === 0 ? (<Row>) : () } </div>
         <div key={index} style={{ display: "inline-block", height: "250px", width: "240px" }}>
           {/* {this.startRow(index)} */}
@@ -134,10 +153,10 @@ class App extends Component {
             <Nav className="ml-auto" navbar>
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                  <a className="nav-link score" href="/">Score: 0</a>
+                  <a className="nav-link score" href="/">Score: {this.state.score}</a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link top-score" href="/">Top Score: 0</a>
+                  <a className="nav-link top-score" href="/">Top Score: {this.state.topScore}</a>
                 </li>
               </ul>
             </Nav>
