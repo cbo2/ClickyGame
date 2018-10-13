@@ -12,6 +12,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "homepage": "https://cbo2.github.io/clicky-game/",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -66,7 +66,6 @@ class App extends Component {
   }
 
   scramble = (num) => {
-    console.log(`hello`)
     console.log(`we clicked on: ${num}`)
 
     let clicked = this.state.clicked
@@ -103,13 +102,8 @@ class App extends Component {
   renderCards = () => {
     return this.state.dogs.map((dog, index) => {
       return (
-
-        // <div>{index % 3 === 0 ? (<Row>) : () } </div>
         <div key={index} style={{ display: "inline-block", height: "250px", width: "240px" }}>
-          {/* {this.startRow(index)} */}
-          {/* {this.getColumn(index)} */}
           <img onClick={() => this.scramble(dog.num)} className={`pic${index}`} src={dog.picture} alt="..." num={dog.num} />
-          {/* {this.columnEnd} */}
         </div>
       )
     })
