@@ -12,6 +12,8 @@
     "reactstrap": "^6.5.0"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -b master -d build",
     "start": "react-scripts start",
     "homepage": "https://cbo2.github.io/clicky-game/",
     "build": "react-scripts build",
