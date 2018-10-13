@@ -71,26 +71,26 @@ class App extends Component {
 
     let clicked = this.state.clicked
     let dogs = []
-    if (clicked.includes(num)) {   // if the clicked array has this dog already, game over!
+    if (clicked.includes(num)) {   // if the clicked array has this dog already (dup), game over!
       console.log(`=======> game over!`)
       alert(`Oooooops....`)
       dogs = this.shuffle(this.state.dogs)
       this.setState({ dogs })
       this.resetGame()
     } else {
-      clicked.push(num)
+      clicked.push(num)  // add the selected dog id num to a list already selected to detect dups
       let score = this.state.score + 1
       let topScore = this.state.topScore
       console.log(`the value of score is ${score} and topscore is ${topScore}`)
       if (score > topScore) {
         topScore = score
       }
-      if (score === 12) {
+      if (score === 12) {  // if all 12 found, game ends in a win!
         alert(`You Won!!!`)
         dogs = this.shuffle(this.state.dogs)
         this.setState({ dogs, topScore })
         this.resetGame()
-      } else {
+      } else {   // update state, shuffle the dogs on the UI and continue the game
         console.log(`clicked now has ${this.state.clicked}`)
         console.log(`2nd the value of score is ${this.state.score} and topscore is ${this.state.topScore}`)
         dogs = this.shuffle(this.state.dogs)
